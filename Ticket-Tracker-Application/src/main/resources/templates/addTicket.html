@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Tracker Application</title>
+    <style>
+        .sub {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            max-width: 600px;
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 0 auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-bar {
+            background-color: blue;
+            padding: 10px;
+            height: 50px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-bar a {
+            color: #f2f2f2;
+            text-align: center;
+            text-decoration: none;
+            padding: 12px 20px;
+        }
+
+        .nav-bar a:hover {
+            background-color: #5757ff;
+            border-radius: 5px;
+        }
+
+        .input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <span>Ticket Tracker Application</span>
+        <div>
+            <a th:href="@{/admin/tickets}">Tickets</a>
+            <a th:href="@{/admin/newTicket}">New Ticket</a>
+        </div>
+    </div>
+
+    <div>
+        <form th:action="@{/admin/saveTicket}" th:object="${ticket}" method="post">
+            <h2>Create Ticket</h2>
+            <hr>
+            
+            <div class="form-group">
+                <label for="ticketTitle">Title</label> <br>
+                <input type="text" id="ticketTitle" class="input" placeholder="Enter ticket title" th:field="*{ticketTitle}" required />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Short Description</label> <br>
+                <textarea id="description" class="input" placeholder="Enter ticket description" th:field="*{description}" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Content</label><br>
+                <textarea id="content" class="input" placeholder="Enter ticket content" th:field="*{content}" required></textarea>
+            </div>
+
+            <div style="text-align: center;">
+                <button type="submit" class="sub">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

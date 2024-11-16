@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Ticket Tracker Application</title>
+
+<style type="text/css">
+body {
+	margin: 0;
+	font-family: Arial;
+}
+
+.container {
+	background-color: blue;
+	color: white;
+	overflow: hidden;
+	height: 30px;
+	padding: 10px;
+}
+
+.container a {
+	color: #f2f2f2;
+	text-align: center;
+	float: inherit;
+	padding: 12px 10px;
+	text-decoration: none;
+}
+.box{
+	align-items: flex-start;
+	text-align: left;
+	margin: 0% 5%;
+}
+.box table{
+	width: 90%;
+}
+
+table {
+	border-style: solid;
+	border-collapse: collapse;
+}
+
+th {
+	color: white;
+	padding: 5px 10px;
+}
+
+thead,td {
+	text-align: center;
+	color: black;
+	padding: 10px;
+}
+
+.edit {
+	background-color: blue;
+	border: 1px outset buttonhighlight;
+	color: white;
+	border-radius: 3px;
+	text-decoration: none;
+	padding: 2px 6px;
+}
+
+#search {
+	background-color: blue;
+	border: 1px outset buttonhighlight;
+	color: white;
+	border-radius: 3px;
+	text-decoration: none;
+	padding: 2px 6px;
+}
+
+.delete {
+	background-color: red;
+	border: 1px outset buttonhighlight;
+	color: white;
+	border-radius: 3px;
+	text-decoration: none;
+	padding: 2px 6px;
+}
+
+.view {
+	background-color: aqua;
+	border: 1px outset buttonhighlight;
+	border-radius: 3px;
+	text-decoration: none;
+	padding: 2px 6px;
+}
+.button-container form{
+	display: inline-block;
+	margin: 0px 15px;
+}
+.button-container form:last-child {
+	margin-right: 0;
+}
+
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<span>Ticket Tracker Application</span> <a th:href="@{/admin/tickets}">Tickets</a><a
+			th:href="@{/admin/newTicket}">New Ticket</a>
+
+	</div>
+
+		<div align="center" class="box">
+
+			<h2 class="list">List Of Tickets</h2>
+			
+			<form th:action="@{/admin/search}" method="get">
+				<input type="search" name="ticketTitle"/>
+				<button id="search">Search</button>
+			</form>
+			 <br>
+
+			<table border="1">
+				<thead>
+					<tr style="background-color: rgb(50, 60, 45);">
+						<th>Ticket id</th>
+						<th>Ticket Title</th>
+						<th>Ticket Short Description</th>
+						<th>Created On</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="ticket:${ticketList}">
+						<td th:text="${ticket.slNo}"></td>
+						<td th:text="${ticket.ticketTitle}"></td>
+						<td th:text="${ticket.description}"></td>
+						<td th:text="${ticket.createdOn}"></td>
+						<td class="button-container">
+							<form th:action="@{/admin/editTicket/{slNo}(slNo=${ticket.slNo})}">
+								<button class="edit">Edit</button>
+							</form>
+							<form th:action="@{/admin/{slNo}/delete(slNo=${ticket.slNo})}">
+								<button class="delete">Delete</button>
+							</form>
+							<form th:action="@{/admin/{slNo}/view(slNo=${ticket.slNo})}">
+								<button class="view">View</button>
+							</form>
+						</td>
+
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+</body>
+</html>
